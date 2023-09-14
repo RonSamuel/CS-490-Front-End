@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.front-back
+{
+font-weight: bold;
+}
+</style>
+</head>
+<body onload="rest()">
+	<div class="front-back">Front-end:</div>
+	<p>Online</p>
+	<div class="front-back">Back-end:</div>
+	<p id="data"></p>
+	<script>
+	function rest() {		
+		// Basic AJAX Call W3Schools
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = () => {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) {
+					document.getElementById("data").innerHTML = xhr.responseText;
+				} else {
+					console.log('Error Code: ' + xhr.status);
+					console.log('Error Message: ' + xhr.statusText);
+				}
+			}
+		}
+		xhr.open('GET', 'back.php');
+		xhr.send();
+	}
+	</script>
+</body>
+
+</html>

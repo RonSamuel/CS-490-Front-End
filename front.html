@@ -1,26 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <style>
-.front-back
-{
-font-weight: bold;
+.collapsible {
+	background-color: #777;
+	color: white;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
 }
+
+.active, .collapsible:hover {
+	background-color: #555;
+}
+
+.content {
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+
+.navbar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.navbar li {
+	float: left;
+	border: 2px solid black;
+}
+
+.navbar li a {
+	display: block;
+	padding: 8px;
+	background-color: #777;
+	color: white;
+	text-decoration: none;
+	font-family: OCR A Std, monospace;
+}
+
+.navbar li b {
+	display: block;
+	padding: 8px;
+	background-color: #555;
+	color: white;
+	text-decoration: none;
+	font-family: OCR A Std, monospace;
+}
+
 </style>
+	<title></title>
 </head>
-<body onload="rest()">
-	<div class="front-back">Front-end:</div>
-	<p>Online</p>
-	<div class="front-back">Back-end:</div>
-	<p id="data"></p>
+<body onload="start()">
+	<div class="navbar">
+	<ul>
+		<li><b href="front.html">Home</b></li>
+		<li><a href="movies.html">Movies</a></li>
+		<li><a href="customers.html">Customers</a></li>
+	</ul>
+	</div>
+	<h1>Top 5 Rented Movies:</h1>
 	<script>
+	function start(){
+		rest();
+		rest2();
+	}
 	function rest() {		
 		// Basic AJAX Call W3Schools
 		var xhr = new XMLHttpRequest();
+		xhr.overrideMimeType("application/json");
 		xhr.onreadystatechange = () => {
-			if(xhr.readyState === 4) {
-				if(xhr.status === 200) {
-					document.getElementById("data").innerHTML = xhr.responseText;
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					var data = JSON.parse(xhr.response);
+					document.getElementById("movie1").innerHTML = data[0].title;
+					document.getElementById("movie2").innerHTML = data[1].title;
+					document.getElementById("movie3").innerHTML = data[2].title;
+					document.getElementById("movie4").innerHTML = data[3].title;
+					document.getElementById("movie5").innerHTML = data[4].title;
+					document.getElementById("movie-data1").innerHTML = "Film ID: " + data[0].film_id + " Release: " + data[0].release_year + " Length: " + data[0].length;
+					document.getElementById("movie-data2").innerHTML = "Film ID: " + data[1].film_id + " Release: " + data[1].release_year + " Length: " + data[1].length;
+					document.getElementById("movie-data3").innerHTML = "Film ID: " + data[2].film_id + " Release: " + data[2].release_year + " Length: " + data[2].length;
+					document.getElementById("movie-data4").innerHTML = "Film ID: " + data[3].film_id + " Release: " + data[3].release_year + " Length: " + data[3].length;
+					document.getElementById("movie-data5").innerHTML = "Film ID: " + data[4].film_id + " Release: " + data[4].release_year + " Length: " + data[4].length;
 				} else {
 					console.log('Error Code: ' + xhr.status);
 					console.log('Error Message: ' + xhr.statusText);
@@ -30,7 +99,98 @@ font-weight: bold;
 		xhr.open('GET', 'back.php');
 		xhr.send();
 	}
+	function rest2() {
+		// Basic AJAX Call from -- W3Schools
+		var xhr = new XMLHttpRequest();
+		xhr.overrideMimeType("application/json");
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					var data = JSON.parse(xhr.response);
+					document.getElementById("actor1").innerHTML = data[0].first_name + " " + data[0].last_name;
+					document.getElementById("actor2").innerHTML = data[1].first_name + " " + data[1].last_name;
+					document.getElementById("actor3").innerHTML = data[2].first_name + " " + data[2].last_name;
+					document.getElementById("actor4").innerHTML = data[3].first_name + " " + data[3].last_name;
+					document.getElementById("actor5").innerHTML = data[4].first_name + " " + data[4].last_name;
+					document.getElementById("actor-data1").innerHTML = "Movie appearances: " + data[0].total + " Actor ID: " + data[0].actor_id;
+					document.getElementById("actor-data2").innerHTML = "Movie appearances: " + data[1].total + " Actor ID: " + data[1].actor_id;
+					document.getElementById("actor-data3").innerHTML = "Movie appearances: " + data[2].total + " Actor ID: " + data[2].actor_id;
+					document.getElementById("actor-data4").innerHTML = "Movie appearances: " + data[3].total + " Actor ID: " + data[3].actor_id;
+					document.getElementById("actor-data5").innerHTML = "Movie appearances: " + data[4].total + " Actor ID: " + data[4].actor_id;
+				} else {
+					console.log('Error Code: ' + xhr.status);
+					console.log('Error Message: ' + xhr.statusText);
+				}
+			}
+		}
+		xhr.open('GET', 't5actor.php');
+		xhr.send();
+	}
 	</script>
+
+	<button type="button" class="collapsible" id="movie1"></button>
+	<div class="content">
+		<p id="movie-data1">test</p>
+	</div>
+	<button type="button" class="collapsible" id="movie2"></button>
+	<div class="content">
+		<p id="movie-data2">test</p>
+	</div>
+	<button type="button" class="collapsible" id="movie3"></button>
+	<div class="content">
+		<p id="movie-data3">test</p>
+	</div>
+	<button type="button" class="collapsible" id="movie4"></button>
+	<div class="content">
+		<p id="movie-data4">test</p>
+	</div>
+	<button type="button" class="collapsible" id="movie5"></button>
+	<div class="content">
+		<p id="movie-data5">test</p>
+	</div>
+
+	<h1>Top 5 Actors:</h1>
+
+	<button type="button" class="collapsible" id="actor1"></button>
+	<div class="content">
+		<p id="actor-data1">test</p>
+	</div>
+	<button type="button" class="collapsible" id="actor2"></button>
+	<div class="content">
+		<p id="actor-data2">test</p>
+	</div>
+	<button type="button" class="collapsible" id="actor3"></button>
+	<div class="content">
+		<p id="actor-data3">test</p>
+	</div>
+	<button type="button" class="collapsible" id="actor4"></button>
+	<div class="content">
+		<p id="actor-data4">test</p>
+	</div>
+	<button type="button" class="collapsible" id="actor5"></button>
+	<div class="content">
+		<p id="actor-data5">test</p>
+	</div>
+
+	<script>
+		//inspired by w3schools
+		var coll = document.getElementsByClassName("collapsible");
+		var i;
+
+		for (i = 0; i < coll.length; i++) {
+			coll[i].addEventListener("click", function() {
+				this.classList.toggle("active");
+				var content = this.nextElementSibling;
+				if (content.style.display === "block") {
+					content.style.display = "none";
+				} else {
+					content.style.display = "block";
+				}
+			});
+		}
+	</script>
+
+
 </body>
 
 </html>

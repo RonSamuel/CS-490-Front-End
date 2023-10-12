@@ -2,21 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
 <form id="start" method="post" action="movies2.php">
     <h1>Movie Info</h1>
-    <div id="text">
-        <input id="userID" name="userID1" placeholder ="Film ID" title="Example: 411511">
-        <p>"required"</p>
-    </div>
-
+    <input id="userID" name="userID1" placeholder ="Film ID" title="Example: 411511" required>
     <input  type="submit" id="idSubmit">
     <input type="reset" value="Reset">
 </form>
 <h1>Search Movies</h1>
 <form id="start2" method="post" action="movies.php">
     <input  type="submit" id="idSubmit2">
+</form>
+
+<h1>Add New Rental</h1>
+<form id="addRental" method="post" action="rent.php">
+    <div>
+        <label for="custID">Customer ID:</label>
+        <input type="text" id="custID" name="custID" required>
+    </div>
+    <div>
+        <label for="invID">Inventory ID:</label>
+        <input type="text" id="invID" name="invID" required>
+    </div>
+    <div>
+        <label for="staffID">Staff ID:</label>
+        <input type="text" pattern="[1-2]" id="staffID" name="staffID" required>
+    </div>
+    <input type="submit" value="Add Rental">
+</form>
+
+<h1>Return</h1>
+<form id="return" method="post" action="return.php">
+    <input id="rentID" name="rentID" placeholder ="Rent ID"title="Example: 411511" required>
+    <input  type="submit">
+    <input type="reset" value="Reset">
 </form>
 
 </body>
